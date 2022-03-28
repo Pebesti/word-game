@@ -10,9 +10,14 @@
 </head>
 
 <body>
+
+    <div>
+        <span id="rangeValue">0</span>
+        <Input class="range" id="range" type="range" name "" value="0" min="0" max="45" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)"></Input>
+    </div>
     <input type="text" class="words">
-    <input type="checkbox" name="Hide" id="checkbox">Hide Words
-    <br><br>
+    <input type="checkbox" name="hide" value="Hide words">
+    <label for="Hide"> Hide Words</label><br><br>
     <button class="btn">Check</button>
     <div id="word">
 

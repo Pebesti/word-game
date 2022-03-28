@@ -1,21 +1,19 @@
 let check = document.querySelector(".btn");
 
-let checkbox = document.getElementById("checkbox");
-
-checkbox.addEventListener("click", function(){
-    var checkedRadioBtn = document.querySelector("input[name='Hide']:checked");
-    if (checkedRadioBtn){
-
-    }
-});
 
 check.addEventListener("click", btnClicked);
 
 function highlight_words(elem, regex) {
-    [].forEach.call(elem, function(ele) {
-        ele.innerHTML = ele.innerHTML.replace(regex, '<span>$&</span>');
-    })
 
+    elem.innerHTML = elem.innerHTML.replace(regex, '<span>$&</span>');
+}
+
+function highlight_word(num) {
+    var par = document.querySelector('p');
+    var highlight = par.innerHTML.split(/[\s,]+/)
+        .map(word => word.length <= num ? `<span>${word}</span>` : word)
+        .join(' ');
+    par.innerHTML = highlight;
 }
 
 function creatPar() {
@@ -27,7 +25,22 @@ function creatPar() {
     div.appendChild(par);
 }
 
+function hideWords() {
+    var checked = document.querySelector("input[name='hide']:checked");
+    if (checked) {
+        var par = document.querySelector('p').textContent;
+        par = par.replace(/\b\w{1,4}\b[ \t]*/sg, "");
+        document.querySelector('p').innerHTML = par;
+        highlight_words(document.querySelector('p'), /[a-zA-Z]{5,}/g)
+    }
+}
+
 function btnClicked() {
     creatPar();
-    highlight_words(document.querySelectorAll('p'), /[a-zA-Z]{5,}/g);
+    highlight_word(document.getElementById("range").value)
+    hideWords()
+}
+
+function rangeSlide(value) {
+    document.getElementById('rangeValue').innerHTML = value;
 }
